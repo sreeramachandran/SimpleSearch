@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Search Result Page</title>
+<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+<script>
+    (function(w, d, t, u, n, s, e) {
+        w['SwiftypeObject'] = n;
+        w[n] = w[n] || function() {
+            (w[n].q = w[n].q || []).push(arguments);
+        };
+        s = d.createElement(t);
+        e = d.getElementsByTagName(t)[0];
+        s.async = 1;
+        s.src = u;
+        e.parentNode.insertBefore(s, e);
+    })(window, document, 'script', 'http://s.swiftypecdn.com/install/v2/st.js', '_st');
+
+    _st('install', 'KzLVC6qUAHeJibiyELuk', '2.0.0', {
+        install: {
+            web: {
+                templates: {
+                    default: {
+                        search: {
+                            result_item: {
+                                page: "<a onclick='event.preventDefault(); window.open(\"{{ full_result.url | escapeUrl }}\");' class='st-ui-result st-ui-image' data-st-result-doc-id='{{result.doc_id}}'><span class='st-ui-thumbnail' style='background-image: url({{ result.image }})' title='{{ result.title }}'><img src='{{ result.image }}' title=' {{result.title }}' /></span><span class='st-ui-type-detail' title='{{ result.title }};'> </span> <span class='st-ui-type-heading'>{{ result.title }}</span> <span class='st-ui-type-detail'><span class='st-ui-type-detail-bold' style='color:green !important;'>{{ result.url }}</span> <br /> {{ result.body }} </span> </a>"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</head>
+<body>
+<p> Search Result Rendering Here </p>
+</body>
+</html>
