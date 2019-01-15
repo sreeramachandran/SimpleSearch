@@ -5,7 +5,7 @@ current_git_branch() {
 }
 
 last_tag_version(){
-	git describe --tags
+	git describe --abbrev=0 --tags
 }
 
 
