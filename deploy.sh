@@ -27,17 +27,18 @@ auto_assign_version() {
 	echo "*** Tagging Process Started ***"
 	if output=$(git status --porcelain) && [ -z "$output" ]; then
 	#if [ -z "$(git status --porcelain)" ]; then 
-  	echo "***Working Directory Is clean Continuing With Process***"
+  	echo "***Working Directory Is clean Continuing With Process****"
+  	CURRENT_BRANCH=$(current_git_branch)
+	LAST_TAG=$(last_tag_version)
+	echo "Last Tag Version Is " $LAST_TAG
+
+	read -p 'Enter Your New Tag Version: ' newTagVersion
+	echo "New Tag Verion Is " $newTagVersion
 	else 
   	echo "***Commit Your Change Before You Create A Tag***"
   	exit 1
 	fi
-	CURRENT_BRANCH=$(current_git_branch)
-	LAST_TAG=$(last_tag_version)
-	echo "Last Tag Version Is " $LAST_TAG
-
-	read -p 'Enter Your Tag Version: ' newTagVersion
-	echo "New Tag Verion Is " $newTagVersion
+	
 
 }
 
