@@ -4,42 +4,33 @@ current_git_branch() {
      git rev-parse --abbrev-ref HEAD
 }
 
-hubj_deployment(){
-	echo "*** Deployment On Hubj Started ***"
-}
-
-tagging_process(){
-	echo "*** Tagging Process Started ***"
-
-}
-
 last_tag_version(){
 	git describe --tags
 }
 
 
+hubj_deployment(){
+	echo "*** Deployment On Hubj Started ***"
+}
 
 
-# determine the version automatically from the current branch name and past tags
+# tagging and release process
 
+tagging_process() {
 
-auto_assign_version() {
 	echo "*** Tagging Process Started ***"
+
 	if output=$(git status --porcelain) && [ -z "$output" ]; then
-	#if [ -z "$(git status --porcelain)" ]; then 
-  	echo "***Working Directory Is clean Continuing With Process****"
-  	CURRENT_BRANCH=$(current_git_branch)
-	LAST_TAG=$(last_tag_version)
-	echo "Last Tag Version Is " $LAST_TAG
-
-	read -p 'Enter Your New Tag Version: ' newTagVersion
-	echo "New Tag Verion Is " $newTagVersion
+  		echo "***Working Directory Is clean Continuing With Process****"
+  		CURRENT_BRANCH=$(current_git_branch)
+		LAST_TAG=$(last_tag_version)
+		echo "Last Tag Version Is " $LAST_TAG
+		read -p 'Enter Your New Tag Version: ' newTagVersion
+		echo "New Tag Verion Is " $newTagVersion
 	else 
-  	echo "***Commit Your Change Before You Create A Tag***"
-  	exit 1
+  		echo "***Commit Your Change Before You Create A Tag***"
+  		exit 1
 	fi
-	
-
 }
 
 
@@ -61,7 +52,7 @@ read -p "Continue Your Process With Deployment Or Tagging (D/T)?" CONTINUE
 if [ "$CONTINUE" = "D" ]; then
  	hubj_deployment
 else
-    auto_assign_version
+    tagging_process
 fi
 
 
