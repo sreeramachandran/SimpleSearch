@@ -22,9 +22,9 @@ tagging_process() {
 
 	if output=$(git status --porcelain) && [ -z "$output" ];then
   		echo "***Working Directory Is clean Continuing With Process****"
-  		CURRENT_BRANCH=$(current_git_branch)
+
 		LAST_TAG_VERSION=$(last_tag_version)
-		echo "Last Tag Version Is " $LAST_TAG_VERSION
+
 		#replace . with space so can split into an array
 		VERSION_BITS=(${LAST_TAG_VERSION//./ })
 
@@ -37,7 +37,7 @@ tagging_process() {
 		#create new tag
 		NEW_TAG_VERSION="$VNUM1.$VNUM2.$VNUM3.$VNUM4"
 
-		echo "Updating $LAST_TAG_VERSION to $NEW_TAG_VERSION"
+		echo "Updating Tag Version $LAST_TAG_VERSION to $NEW_TAG_VERSION"
 
 		#read -p 'Enter Your New Tag Version: ' newTagVersion
 		#echo "New Tag Verion Is " $newTagVersion
