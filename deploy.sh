@@ -44,7 +44,7 @@ tagging_process() {
 		if [ "$CONTINUE" = "Y" ]; then
  			echo "*** Creating New Tag And Pushing To Origin ***"
 		else
-    		echo "*** Tagging Process Aborted"
+    		echo "*** Tagging Process Aborted ***"
  		fi
 
 		#read -p 'Enter Your New Tag Version: ' newTagVersion
