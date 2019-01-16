@@ -15,6 +15,25 @@ hubj_deployment(){
 }
 
 
+#creating new release branch
+
+create_new_release_branch(){
+	echo "*** Creating New Release Branch ***"
+
+	CURRENT_BRANCH=$(current_git_branch)
+
+if [[ "$CURRENT_BRANCH" != "master" ]]; then
+  echo 'Aborting script';
+  exit 1;
+fi
+
+echo 'Do stuff';
+
+
+}
+
+
+
 # tagging and release process
 
 tagging_process() {
@@ -82,7 +101,7 @@ read -p "Continue Your Process With Deployment Or Tagging (D/T)?" CONTINUE
 if [ "$CONTINUE" = "D" ]; then
  	hubj_deployment
 else
-    tagging_process
+    create_new_release_branch
 fi
 
 
