@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 current_git_branch() {
      git rev-parse --abbrev-ref HEAD
@@ -20,29 +20,13 @@ tagging_process() {
 
 	echo "*** Tagging Process Started ***"
 
-	if output=$(git status --porcelain) && [ -z "$output" ]; then
+	if output=$(git status --porcelain) && [ -z "$output" ];then
   		echo "***Working Directory Is clean Continuing With Process****"
   		CURRENT_BRANCH=$(current_git_branch)
 		LAST_TAG=$(last_tag_version)
 		echo "Last Tag Version Is " $LAST_TAG
-
-		if [ -z "$LAST_TAG" ]; then
-        VERSION="${LAST_TAG}.0"
-    	else
-        if echo "$LAST_TAG" | grep 'v1.'; then
-            CANDIDATE=${BASH_REMATCH[1]}
-            let CANDIDATE++
-            VERSION="${CURRENT_BRANCH}.${CANDIDATE}"
-        else
-            echo "Last tag name is not well-formed: $LAST_TAG"
-            guide_help
-        fi
-    fi
-
-    TAG="v${VERSION}"
-
-
-
+		VERSION=`git describe --abbrev=0 --tags`
+		#VERSION_BITS=(${VERSION//./ });
 
 		#read -p 'Enter Your New Tag Version: ' newTagVersion
 		#echo "New Tag Verion Is " $newTagVersion
