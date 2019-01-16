@@ -25,9 +25,18 @@ tagging_process() {
   		CURRENT_BRANCH=$(current_git_branch)
 		LAST_TAG=$(last_tag_version)
 		echo "Last Tag Version Is " $LAST_TAG
-		VERSION=`git describe --abbrev=0 --tags`
-		VERSION_BITS=(${VERSION//./ });
-		echo "Version Split Is" $VERSION_BITS
+		#replace . with space so can split into an array
+		VERSION_BITS=(${LAST_TAG//./ })
+
+		#get number parts and increase last one by 1
+		VNUM1=${VERSION_BITS[0]}
+		VNUM2=${VERSION_BITS[1]}
+		VNUM3=${VERSION_BITS[2]}
+		VNUM3=$((VNUM3+1)
+		#create new tag
+		NEW_TAG="$VNUM1.$VNUM2.$VNUM3"
+
+		echo "Updating $VERSION to $NEW_TAG"
 
 		#read -p 'Enter Your New Tag Version: ' newTagVersion
 		#echo "New Tag Verion Is " $newTagVersion
