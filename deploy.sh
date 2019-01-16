@@ -26,7 +26,7 @@ tagging_process() {
 		LAST_TAG=$(last_tag_version)
 		echo "Last Tag Version Is " $LAST_TAG
 		VERSION=`git describe --abbrev=0 --tags`
-		#VERSION_BITS=(${VERSION//./ });
+		VERSION_BITS=(${VERSION//./ });
 
 		#read -p 'Enter Your New Tag Version: ' newTagVersion
 		#echo "New Tag Verion Is " $newTagVersion
