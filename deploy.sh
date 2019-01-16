@@ -27,9 +27,9 @@ tagging_process() {
 		echo "Last Tag Version Is " $LAST_TAG
 
 		if [ -z "$LAST_TAG" ]; then
-        VERSION="${CURRENT_BRANCH}.0"
+        VERSION="${LAST_TAG}.0"
     	else
-        if echo "$CURRENT_BRANCH" | grep 'v1.'; then
+        if echo "$LAST_TAG" | grep 'v1.'; then
             CANDIDATE=${BASH_REMATCH[1]}
             let CANDIDATE++
             VERSION="${CURRENT_BRANCH}.${CANDIDATE}"
