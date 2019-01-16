@@ -1,9 +1,18 @@
-#!/bin/bash
+#!/bin/sh
 
-#get highest tag number
-VERSION=`git describe --abbrev=0 --tags`
+# retrieve branch name
+BRANCH_NAME=$(git branch | sed -n '/\* /s///p')
 
-#replace . with space so can split into an array
+# remove prefix release
+REGEXP_RELEASE="release\/"
+VERSION_BRANCH=$(echo "$BRANCH_NAME" | sed "s/$REGEXP_RELEASE//") 
+
+echo "Current version branch is $VERSION_BRANCH"
+
+# retrieve the last commit on the branch
+VERSION=$(git describe --tags --match=$VERSION_BRANCH* --abbrev=0)
+
+# split into array
 VERSION_BITS=(${VERSION//./ })
 
 #get number parts and increase last one by 1
