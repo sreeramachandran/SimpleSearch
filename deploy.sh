@@ -39,6 +39,14 @@ tagging_process() {
 
 		echo "Updating Tag Version $LAST_TAG_VERSION to $NEW_TAG_VERSION"
 
+		read -p "Continue Your Process With Creating Tag (Y/N)?" CONTINUE
+
+		if [ "$CONTINUE" = "Y" ]; then
+ 			echo "*** Creating New Tag And Pushing To Origin ***"
+		else
+    		echo "*** Tagging Process Aborted"
+ 		fi
+
 		#read -p 'Enter Your New Tag Version: ' newTagVersion
 		#echo "New Tag Verion Is " $newTagVersion
 	else 
