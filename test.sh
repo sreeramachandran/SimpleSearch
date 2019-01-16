@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/sh
 
 # retrieve branch name
 BRANCH_NAME=$(git branch | sed -n '/\* /s///p')
