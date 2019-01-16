@@ -43,7 +43,20 @@ tagging_process() {
 	if output=$(git status --porcelain) && [ -z "$output" ];then
   		echo "***Working Directory Is clean Continuing With Process****"
 
-		LAST_TAG_VERSION=$(last_tag_version)
+
+  		# retrieve branch name
+		BRANCH_NAME=$(git branch | sed -n '/\* /s///p')
+
+		# remove prefix release
+		REGEXP_RELEASE="release\/"
+		VERSION_BRANCH=$(echo "$BRANCH_NAME" | sed "s/$REGEXP_RELEASE//") 
+
+		echo "Current version branch is $VERSION_BRANCH"
+
+		# retrieve the last commit on the branch
+		LAST_TAG_VERSION=$(git describe --tags --match=$VERSION_BRANCH* --abbrev=0)
+
+		#LAST_TAG_VERSION=$(last_tag_version)
 		
 		#replace . with space so can split into an array
 		VERSION_BITS=(${LAST_TAG_VERSION//./ })
