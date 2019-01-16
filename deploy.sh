@@ -68,24 +68,14 @@ CURRENT_BRANCH=$(current_git_branch)
 
 if echo "$CURRENT_BRANCH" | grep 'release'; then
 	echo "*** Currently You Are In Release Branch ***";
-else
-	echo "*** Currently You Are In Other Branch Checkout To Release Branch And Contine With Process***";
-	exit 1
+	echo "***Your Current Git Branch Is ***" $CURRENT_BRANCH;
+	read -p "Continue Your Process With Deployment Or Tagging (D/T)?" CONTINUE
+	if [ "$CONTINUE" = "D" ]; then
+ 		hubj_deployment
+	else
+    	tagging_process
+	fi
+	else
+		echo "*** Currently You Are In Other Branch Checkout To Release Branch And Contine With Process ****";
+		exit 1
 fi
-
-echo "***Your Current Git Branch Is ***" $CURRENT_BRANCH;
-
-
-read -p "Continue Your Process With Deployment Or Tagging (D/T)?" CONTINUE
-
-if [ "$CONTINUE" = "D" ]; then
- 	hubj_deployment
-else
-    tagging_process
-fi
-
-
-
-
-
-#CURRENT_BRANCH= git rev-parse --abbrev-ref HEAD
