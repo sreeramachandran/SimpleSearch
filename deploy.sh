@@ -11,6 +11,7 @@ last_tag_version(){
 
 hubj_deployment(){
 	echo "*** Deployment On Hubj Started ***"
+	exit 1
 }
 
 
@@ -48,7 +49,7 @@ tagging_process() {
 
     		# create new remote tag
     		git push origin "${NEW_TAG_VERSION}"
-    			
+
 		else
     		echo "*** Tagging Process Aborted ***"
     		exit 1
