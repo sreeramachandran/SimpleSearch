@@ -25,8 +25,27 @@ tagging_process() {
   		CURRENT_BRANCH=$(current_git_branch)
 		LAST_TAG=$(last_tag_version)
 		echo "Last Tag Version Is " $LAST_TAG
-		read -p 'Enter Your New Tag Version: ' newTagVersion
-		echo "New Tag Verion Is " $newTagVersion
+
+		if [ -z "$LAST_TAG" ]; then
+        VERSION="${CURRENT_BRANCH}.0"
+    	else
+        if echo "$CURRENT_BRANCH" | grep 'v1.'; then
+            CANDIDATE=${BASH_REMATCH[1]}
+            let CANDIDATE++
+            VERSION="${CURRENT_BRANCH}.${CANDIDATE}"
+        else
+            echo "Last tag name is not well-formed: $LAST_TAG"
+            guide_help
+        fi
+    fi
+
+    TAG="v${VERSION}"
+
+
+
+
+		#read -p 'Enter Your New Tag Version: ' newTagVersion
+		#echo "New Tag Verion Is " $newTagVersion
 	else 
   		echo "***Commit Your Change Before You Create A Tag***"
   		exit 1
