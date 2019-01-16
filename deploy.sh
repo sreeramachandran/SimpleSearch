@@ -43,8 +43,15 @@ tagging_process() {
 
 		if [ "$CONTINUE" = "Y" ]; then
  			echo "*** Creating New Tag And Pushing To Origin ***"
+ 			    # create new local tag
+    		git tag "${NEW_TAG_VERSION}"
+
+    		# create new remote tag
+    		git push origin "${NEW_TAG_VERSION}"
+    			
 		else
     		echo "*** Tagging Process Aborted ***"
+    		exit 1
  		fi
 
 		#read -p 'Enter Your New Tag Version: ' newTagVersion
