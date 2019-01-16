@@ -32,9 +32,9 @@ tagging_process() {
 		VNUM1=${VERSION_BITS[0]}
 		VNUM2=${VERSION_BITS[1]}
 		VNUM3=${VERSION_BITS[2]}
-		VNUM4=$((VNUM3+1)
+		VNUM3=$((VNUM3+1))
 		#create new tag
-		NEW_TAG="$VNUM1.$VNUM2.$VNUM4"
+		NEW_TAG="$VNUM1.$VNUM2.$VNUM3"
 
 		echo "Updating $VERSION to $NEW_TAG"
 
