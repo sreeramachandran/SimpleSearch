@@ -33,7 +33,6 @@ echo 'Do stuff';
 }
 
 
-
 # tagging and release process
 
 tagging_process() {
@@ -98,7 +97,7 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 	echo "***Your Current Git Branch Is ***" $CURRENT_BRANCH;
 	read -p "Continue Your Process With Deployment Or Tagging (D/T)?" CONTINUE
 	if [ "$CONTINUE" = "D" ]; then
-		hubj_deployment
+		create_new_release_branch
 	else
 		tagging_process
 	fi
