@@ -19,17 +19,9 @@ hubj_deployment(){
 
 create_new_release_branch(){
 	echo "*** Creating New Release Branch ***"
-
 	CURRENT_BRANCH=$(current_git_branch)
 
-if [[ "$CURRENT_BRANCH" != "master" ]]; then
-  echo 'Aborting script';
-  exit 1;
-fi
-
-echo 'Do stuff';
-
-
+	echo 'Do stuff';
 }
 
 
@@ -88,8 +80,6 @@ tagging_process() {
 	fi
 }
 
-
-
 CURRENT_BRANCH=$(current_git_branch)
 
 if echo "$CURRENT_BRANCH" | grep 'release'; then
@@ -97,97 +87,23 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 	echo "***Your Current Git Branch Is ***" $CURRENT_BRANCH;
 	read -p "Continue Your Process With Deployment Or Tagging (D/T)?" CONTINUE
 	if [ "$CONTINUE" = "D" ]; then
-		create_new_release_branch
+		hubj_deployment
 	else
 		tagging_process
 	fi
+elif echo "$CURRENT_BRANCH" | grep 'master'; then
+	echo "***Currently You Are In master Branch Continue With New Release Process ***"
+	read -p "Continue Your Process With New Release Branch (y/n)?" CONTINUE
+	if [ "$CONTINUE" = "y" ]; then
+		create_new_release_branch
+	else
+		echo "*** Aborted New Release Branch ***"
+		exit 1
+	fi
+	
 else
 	echo "*** Currently You Are In Other Branch Checkout To Release Branch And Contine With Process***";
 	exit 1
 fi
 
 
-
-POSITIONAL=()
-while [[ $# -gt 0 ]]
-do
-    key="$1"
-    case $key in
-        -h|--help)
-            show_usage
-            ;;
-
-
-            
-        -p|--prod)
-            check_multiple_project
-            PROJECT="prod"
-            if [ -z "$PROMOTE_FLAG" ]; then
-                PROMOTE_FLAG="--no-promote"
-            fi
-            shift
-            ;;
-        -s|--staging)
-            check_multiple_project
-            PROJECT="staging"
-            if [ -z "$PROMOTE_FLAG" ]; then
-                PROMOTE_FLAG="--promote"
-            fi
-            shift
-            ;;
-        -t|--test)
-            check_multiple_project
-            PROJECT="test"
-            if [ -z "$PROMOTE_FLAG" ]; then
-                PROMOTE_FLAG="--promote"
-            fi
-            shift
-            ;;
-        --version)
-            VERSION="$2"
-            shift
-            shift
-            ;;
-        --queue)
-            DEPLOY_QUEUE=1
-            shift
-            ;;
-        --cron)
-            DEPLOY_CRON=1
-            shift
-            ;;
-        --upgrade-db)
-            UPGRADE_DB=1
-            shift
-            ;;
-        --no-tag)
-            NO_TAG=1
-            shift
-            ;;
-        --gcloud-version)
-            GCLOUD_VERSION="$2"
-            shift
-            shift
-            ;;
-        --promote)
-            PROMOTE_FLAG="--promote"
-            shift
-            ;;
-        --no-promote)
-            PROMOTE_FLAG="--no-promote"
-            shift
-            ;;
-        --no-deploy)
-            NO_DEPLOY=1
-            shift
-            ;;
-        --build-only)
-            BUILD_ONLY=1
-            shift
-            ;;
-        *) # unknown option
-            POSITIONAL+=("$1") # save it in an array for later
-            shift
-            ;;
-    esac
-done
