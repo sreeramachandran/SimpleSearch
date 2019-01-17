@@ -105,3 +105,89 @@ else
 	echo "*** Currently You Are In Other Branch Checkout To Release Branch And Contine With Process***";
 	exit 1
 fi
+
+
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+    key="$1"
+    case $key in
+        -h|--help)
+            show_usage
+            ;;
+
+
+            
+        -p|--prod)
+            check_multiple_project
+            PROJECT="prod"
+            if [ -z "$PROMOTE_FLAG" ]; then
+                PROMOTE_FLAG="--no-promote"
+            fi
+            shift
+            ;;
+        -s|--staging)
+            check_multiple_project
+            PROJECT="staging"
+            if [ -z "$PROMOTE_FLAG" ]; then
+                PROMOTE_FLAG="--promote"
+            fi
+            shift
+            ;;
+        -t|--test)
+            check_multiple_project
+            PROJECT="test"
+            if [ -z "$PROMOTE_FLAG" ]; then
+                PROMOTE_FLAG="--promote"
+            fi
+            shift
+            ;;
+        --version)
+            VERSION="$2"
+            shift
+            shift
+            ;;
+        --queue)
+            DEPLOY_QUEUE=1
+            shift
+            ;;
+        --cron)
+            DEPLOY_CRON=1
+            shift
+            ;;
+        --upgrade-db)
+            UPGRADE_DB=1
+            shift
+            ;;
+        --no-tag)
+            NO_TAG=1
+            shift
+            ;;
+        --gcloud-version)
+            GCLOUD_VERSION="$2"
+            shift
+            shift
+            ;;
+        --promote)
+            PROMOTE_FLAG="--promote"
+            shift
+            ;;
+        --no-promote)
+            PROMOTE_FLAG="--no-promote"
+            shift
+            ;;
+        --no-deploy)
+            NO_DEPLOY=1
+            shift
+            ;;
+        --build-only)
+            BUILD_ONLY=1
+            shift
+            ;;
+        *) # unknown option
+            POSITIONAL+=("$1") # save it in an array for later
+            shift
+            ;;
+    esac
+done
