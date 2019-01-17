@@ -57,7 +57,7 @@ tagging_process() {
 		#create new tag
 		NEW_TAG_VERSION="$VNUM1.$VNUM2.$VNUM3.$VNUM4"
 
-		echo "Updating Tag Version $LAST_TAG_VERSION to $NEW_TAG_VERSIONS"
+		echo "Updating Tag Version $LAST_TAG_VERSION to $NEW_TAG_VERSION"
 
 		read -p "Continue Your Process With Creating Tag (Y/N)?" CONTINUE
 
