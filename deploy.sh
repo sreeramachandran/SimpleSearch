@@ -97,15 +97,6 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 	echo "***Your Current Git Branch Is ***" $CURRENT_BRANCH;
 	read -p "Continue Your Process With Deployment Or Tagging (D/T)?" CONTINUE
 	if [ "$CONTINUE" = "D" ]; then
-<<<<<<< HEAD
- 		hubj_deployment
-	else
-    	tagging_process
-	fi
-	else
-		echo "*** Currently You Are In Other Branch Checkout To Release Branch And Contine With Process ****";
-		exit 1
-=======
 		create_new_release_branch
 	else
 		tagging_process
@@ -113,5 +104,4 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 else
 	echo "*** Currently You Are In Other Branch Checkout To Release Branch And Contine With Process***";
 	exit 1
->>>>>>> d05a01278bc51deccef52b67fa3efaf4b0370fb9
 fi
