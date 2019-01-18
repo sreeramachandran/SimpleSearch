@@ -19,9 +19,27 @@ hubj_deployment(){
 
 create_new_release_branch(){
 	echo "*** Creating New Release Branch ***"
-	CURRENT_BRANCH=$(current_git_branch)
+	RELEASE_BRANCHES=( $(git branch -a | grep "release") )
+	#replace . with space so can split into an array
+	VERSION_BITS_BRANCHES=(${RELEASE_BRANCHES//./ })
+	echo $VERSION_BITS_BRANCHES	
 
-	echo 'Do stuff';
+	#get number of parts and increase last one by 1
+	NUM1=${VERSION_BITS_BRANCHES[0]}
+	
+	echo $NUM1
+	NUM2=${VERSION_BITS_BRANCHES[1]}
+	
+	echo $NUM2
+	NUM3=${VERSION_BITS_BRANCHES[2]}
+	#echo $NUM3
+	NUM3=$((NUM3+1))
+	echo $NUM3
+
+	NEW_BRANCH_NAME="$NUM1_$NUM2.$NUM3" 
+
+	#echo $NEW_BRANCH_NAME
+	
 }
 
 
