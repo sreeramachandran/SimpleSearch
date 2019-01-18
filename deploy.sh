@@ -27,14 +27,14 @@ create_new_release_branch(){
 	#get number of parts and increase last one by 1
 	NUM1=${VERSION_BITS_BRANCHES[0]}
 	
-	echo $NUM1
+	echo $NUM1 "One"
 	NUM2=${VERSION_BITS_BRANCHES[1]}
 	
-	echo $NUM2
+	echo $NUM2 "Two"
 	NUM3=${VERSION_BITS_BRANCHES[2]}
 	#echo $NUM3
 	NUM3=$((NUM3+1))
-	echo $NUM3
+	echo $NUM3 "THree"
 
 	NEW_BRANCH_NAME="$NUM1_$NUM2.$NUM3" 
 
