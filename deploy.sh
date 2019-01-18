@@ -19,26 +19,28 @@ hubj_deployment(){
 
 create_new_release_branch(){
 	echo "*** Creating New Release Branch ***"
-	RELEASE_BRANCHES=( $(git branch -a | grep "release") )
+	LATEST_RELEASE_BRANCHES=( $(git branch --sort=-committerdate | grep "release") )
 	#replace . with space so can split into an array
-	VERSION_BITS_BRANCHES=(${RELEASE_BRANCHES//./ })
-	echo $VERSION_BITS_BRANCHES	
+	VERSION_BITS_BRANCHES=(${LATEST_RELEASE_BRANCHES//./ })
 
 	#get number of parts and increase last one by 1
-	NUM1=${VERSION_BITS_BRANCHES[0]}
-	
-	echo $NUM1 "One"
-	NUM2=${VERSION_BITS_BRANCHES[1]}
-	
-	echo $NUM2 "Two"
-	NUM3=${VERSION_BITS_BRANCHES[2]}
-	#echo $NUM3
-	NUM3=$((NUM3+1))
-	echo $NUM3 "THree"
+	VNUM1=${VERSION_BITS_BRANCHES[0]}
+	echo "One" $VNUM1
+	VNUM2=${VERSION_BITS_BRANCHES[1]}
+	echo "Two" $VNUM2
+	#VNUM3=${VERSION_BITS_BRANCHES[2]}
+	#echo "Three" $VNUM3
+	VNUM2=$((VNUM2+1))
 
-	NEW_BRANCH_NAME="$NUM1_$NUM2.$NUM3" 
+	echo "Added Is "$VNUM2
 
-	#echo $NEW_BRANCH_NAME
+	echo "*** Latest Release Version Branch From Git Is ***" $LATEST_RELEASE_BRANCHES
+
+	NEW_BRANCH_NAME="$VNUM1_$VNUM2"
+	NEW_BRANCH_NAME2="$VNUM1.$VNUM2" 
+
+	echo "*** Suggested New Release Branch ***" $NEW_BRANCH_NAME
+	echo "###" $NEW_BRANCH_NAME2
 	
 }
 
