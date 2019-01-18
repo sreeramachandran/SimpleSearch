@@ -43,7 +43,7 @@ create_new_release_branch(){
 }
 
 
-# tagging and release process
+# tagging and release process master master master
 
 tagging_process() {
 
