@@ -101,13 +101,11 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
   		echo "***Commit Your Change Before You Create A Tag***"
   		exit 1
 	fi
-
+	whiptail --title "Example Dialog" --msgbox "This is an example of a message box. You must hit OK to continue." 8 78
 	read -p "Continue Your Process With Deployment Or Tagging (D/T)?" CONTINUE
 	if [ "$CONTINUE" = "D" ]; then
 		hubj_deployment
 	elif [ "$CONTINUE" = "T" ];then
-		#zenity --question --text="Before Continuing The Process Make Sure Release Branch Is Upto Date/?"
-		whiptail --title "Example Dialog" --msgbox "This is an example of a message box. You must hit OK to continue." 8 78
 		tagging_process
 	else
 		echo "*** Exit Process ***";
