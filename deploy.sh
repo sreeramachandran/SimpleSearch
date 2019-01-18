@@ -49,9 +49,6 @@ tagging_process() {
 
 	echo "*** Tagging Process Started ***"
 
-	if output=$(git status --porcelain) && [ -z "$output" ];then
-  		echo "***Working Directory Is clean Continuing With Process****"
-
 		LAST_TAG_VERSION=$(last_tag_version)
 		
 		echo "Last Tag Version " $LAST_TAG_VERSION
@@ -90,12 +87,6 @@ tagging_process() {
     		exit 1
  		fi
 
-		#read -p 'Enter Your New Tag Version: ' newTagVersion
-		#echo "New Tag Verion Is " $newTagVersion
-	else 
-  		echo "***Commit Your Change Before You Create A Tag***"
-  		exit 1
-	fi
 }
 
 CURRENT_BRANCH=$(current_git_branch)
@@ -103,11 +94,22 @@ CURRENT_BRANCH=$(current_git_branch)
 if echo "$CURRENT_BRANCH" | grep 'release'; then
 	echo "*** Currently You Are In Release Branch ***";
 	echo "***Your Current Git Branch Is ***" $CURRENT_BRANCH;
+	#if current release branch has any uncommit changes process is exit.
+	if output=$(git status --porcelain) && [ -z "$output" ];then
+  		echo "***Working Directory Is clean Continuing With Process****"
+  	else 
+  		echo "***Commit Your Change Before You Create A Tag***"
+  		exit 1
+	fi
+
 	read -p "Continue Your Process With Deployment Or Tagging (D/T)?" CONTINUE
 	if [ "$CONTINUE" = "D" ]; then
 		hubj_deployment
-	else
+	elif [ "$CONTINUE" = "T" ];then
+		#zenity --question --text="Do you wish to continue/?"
 		tagging_process
+	else
+		echo "*** Exit Process ***";
 	fi
 elif echo "$CURRENT_BRANCH" | grep 'master'; then
 	echo "***Currently You Are In master Branch Continue With New Release Process ***"
