@@ -106,7 +106,7 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 	if [ "$CONTINUE" = "D" ]; then
 		hubj_deployment
 	elif [ "$CONTINUE" = "T" ];then
-		#zenity --question --text="Do you wish to continue/?"
+		zenity --question --text="Before Continuing The Process Make Sure Release Branch Is Upto Date/?"
 		tagging_process
 	else
 		echo "*** Exit Process ***";
