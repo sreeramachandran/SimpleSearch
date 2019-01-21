@@ -19,23 +19,12 @@ hubj_deployment(){
 
 create_new_release_branch(){
 	echo "*** Creating New Release Branch ***"
-	LATEST_RELEASE_BRANCHES=( $(git branch --sort=-committerdate | grep "release") )
-	#replace . with space so can split into an array
-	VERSION_BITS_BRANCHES=(${LATEST_RELEASE_BRANCHES//./ })
+	read -p 'Enter New Release Branch Name: ' newreleasebranchname
 
-	#get number of parts and increase last one by 1
-	VNUM1=${VERSION_BITS_BRANCHES[0]}
-	VNUM2=${VERSION_BITS_BRANCHES[1]}
-	VNUM2=$((VNUM2+1))
-
-	echo "*** Latest Release Version Branch From Git Is ***" $LATEST_RELEASE_BRANCHES
-
-	NEW_BRANCH_NAME="$VNUM1.$VNUM2" 
-	echo "***Suggested New Version Is " $NEW_BRANCH_NAME
-	check_release_branch
-	read -p "Continue Your Process With Creating Branch (Y/N)?" CONTINUE
+	#check_release_branch
+	read -p "Continue Your Process With Creating New Branch Name(Y/N)?" CONTINUE
 	if [ "$CONTINUE" = "Y" ]; then
-		git checkout -b $NEW_BRANCH_NAME master
+		git checkout -b $newreleasebranchname master
 		echo "***Branch Created ***"
 	else
     	echo "*** Branching Process Aborted ***"
