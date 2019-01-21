@@ -50,6 +50,7 @@ check_release_branch(){
 	if [ `git branch --list $NEW_BRANCH_NAME` ]
 then
    echo "Branch name $branch_name already exists."
+   
    exit 1
 fi
 }
