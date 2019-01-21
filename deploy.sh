@@ -25,22 +25,24 @@ create_new_release_branch(){
 
 	#get number of parts and increase last one by 1
 	VNUM1=${VERSION_BITS_BRANCHES[0]}
-	echo "One" $VNUM1
 	VNUM2=${VERSION_BITS_BRANCHES[1]}
-	echo "Two" $VNUM2
-	#VNUM3=${VERSION_BITS_BRANCHES[2]}
-	#echo "Three" $VNUM3
 	VNUM2=$((VNUM2+1))
-
-	echo "Added Is "$VNUM2
 
 	echo "*** Latest Release Version Branch From Git Is ***" $LATEST_RELEASE_BRANCHES
 
-	NEW_BRANCH_NAME="$VNUM1_$VNUM2"
-	NEW_BRANCH_NAME2="$VNUM1.$VNUM2" 
+	NEW_BRANCH_NAME="$VNUM1.$VNUM2" 
+	echo "***Suggested New Version Is " $NEW_BRANCH_NAME
+	read -p "Continue Your Process With Creating Branch (Y/N)?" CONTINUE
+	if [ "$CONTINUE" = "Y" ]; then
+		git checkout -b $NEW_BRANCH_NAME master
+		echo "***Branch Created ***"
+	else
+    	echo "*** Branching Process Aborted ***"
+    	exit 1
+ 		fi
 
-	echo "*** Suggested New Release Branch ***" $NEW_BRANCH_NAME
-	echo "###" $NEW_BRANCH_NAME2
+	#NEW_BRANCH_NAME2="$VNUM1_$VNUM2"
+	#echo "*** Suggested New Release Branch ***" $NEW_BRANCH_NAME
 	
 }
 
