@@ -32,6 +32,7 @@ create_new_release_branch(){
 
 	NEW_BRANCH_NAME="$VNUM1.$VNUM2" 
 	echo "***Suggested New Version Is " $NEW_BRANCH_NAME
+	check_release_branch
 	read -p "Continue Your Process With Creating Branch (Y/N)?" CONTINUE
 	if [ "$CONTINUE" = "Y" ]; then
 		git checkout -b $NEW_BRANCH_NAME master
@@ -45,7 +46,13 @@ create_new_release_branch(){
 	#echo "*** Suggested New Release Branch ***" $NEW_BRANCH_NAME
 	
 }
-
+check_release_branch(){
+	if [ `git branch --list $NEW_BRANCH_NAME` ]
+then
+   echo "Branch name $branch_name already exists."
+   exit 1
+fi
+}
 
 # tagging and release process master master master
 
