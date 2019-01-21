@@ -20,21 +20,17 @@ hubj_deployment(){
 create_new_release_branch(){
 	echo "*** Creating New Release Branch ***"
 	read -p 'Enter New Release Branch Name: ' newreleasebranchname
+	git checkout -b $newreleasebranchname master
 
-	#check_release_branch
-	read -p "Continue Your Process With Creating New Branch Name(Y/N)?" CONTINUE
-	if [ "$CONTINUE" = "Y" ]; then
-		git checkout -b $newreleasebranchname master
-		echo "***Branch Created ***"
+	read -p "Continue Your Process With Tagging (y/n)?" CONTINUE
+	if [ "$CONTINUE" = "y" ]; then
+		tagging_process
 	else
-    	echo "*** Branching Process Aborted ***"
-    	exit 1
- 		fi
-
-	#NEW_BRANCH_NAME2="$VNUM1_$VNUM2"
-	#echo "*** Suggested New Release Branch ***" $NEW_BRANCH_NAME
-	
+		echo "*** Exit Process ***";
+	fi
 }
+
+
 check_release_branch(){
 	if [ `git branch --list $NEW_BRANCH_NAME` ]
 then
@@ -113,7 +109,7 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 	fi
 elif echo "$CURRENT_BRANCH" | grep 'master'; then
 	echo "***Currently You Are In master Branch Continue With New Release Process ***"
-	read -p "Continue Your Process With New Release Branch (y/n)?" CONTINUE
+	read -p "Continue Your Process By Creating New Release Branch (y/n)?" CONTINUE
 	if [ "$CONTINUE" = "y" ]; then
 		create_new_release_branch
 	else
