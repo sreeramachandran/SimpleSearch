@@ -26,7 +26,7 @@ create_new_release_branch(){
 	if [ "$CONTINUE" = "y" ]; then
 		tagging_process
 	else
-		echo "*** Exit Process ***";
+		echo "*** Exit Process ****";
 	fi
 }
 
