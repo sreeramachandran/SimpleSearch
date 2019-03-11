@@ -18,6 +18,7 @@ hubj_deployment(){
 #creating new release branch
 
 create_new_release_branch(){
+	check_release_branch
 	echo "*** Creating New Release Branch ****"
 	read -p 'Enter New Release Branch Name: ' newreleasebranchname
 	git checkout -b $newreleasebranchname master
