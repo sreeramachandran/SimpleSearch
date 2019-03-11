@@ -24,7 +24,7 @@ create_new_release_branch(){
 
 	read -p "Continue Your Process With Tagging (y/n)?" CONTINUE
 	if [ "$CONTINUE" = "y" ]; then
-		tagging_process
+		new_branch_tagging_process
 	else
 		echo "*** Exit Process ****";
 	fi
@@ -40,7 +40,27 @@ then
 fi
 }
 
-# tagging and release process master master master
+
+# tagging and release process
+
+new_branch_tagging_process() {
+
+	echo "***New Release Branch Tagging Process Started ***"
+
+		read -p "Continue Your Process With Creating New Release Version Tag (Y/N)?" CONTINUE
+
+		if [ "$CONTINUE" = "Y" ]; then
+			read -p 'Enter New Release Release Branch Tag Name: ' newreleasebranchtagname
+			echo newreleasebranchtagname
+
+		else
+    		echo "***New Release Branch Tagging Process Aborted ***"
+    		exit 1
+ 		fi
+
+}
+
+# tagging and release process
 
 tagging_process() {
 
