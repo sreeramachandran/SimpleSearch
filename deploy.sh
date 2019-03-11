@@ -51,7 +51,7 @@ new_branch_tagging_process() {
 
 		if [ "$CONTINUE" = "Y" ]; then
 			read -p 'Enter New Release Release Branch Tag Name: ' newreleasebranchtagname
-			echo newreleasebranchtagname
+			echo $newreleasebranchtagname
 
 		else
     		echo "***New Release Branch Tagging Process Aborted ***"
