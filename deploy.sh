@@ -11,7 +11,7 @@ last_tag_version(){
 
 hubj_deployment(){
 	echo "*** Deployment On Hubj Started ***"
-	xdg-open https://stackoverflow.com 
+	xdg-open https://console.cloud.google.com/storage/browser/gateway_builds
 	exit 1
 }
 
