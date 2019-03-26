@@ -121,14 +121,14 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
   		echo "WARN: commit your changes before creating tag"
   		exit 1
 	fi
-	zenity --info --text="Make Sure Your Release Branch And Master Or In Sink!" --title="Info!"
-	read -p "Continue Your Process With Deployment Or Tagging (R/T)?" CONTINUE
+	zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="Info!"
+	read -p "INFO: continue your process with release or tagging (R/T)?" CONTINUE
 	if [ "$CONTINUE" = "R" ]; then
 		hubj_release
 	elif [ "$CONTINUE" = "T" ];then
 		tagging_process
 	else
-		echo "*** Exit Process ***";
+		echo "INFO: process aborted";
 	fi
 elif echo "$CURRENT_BRANCH" | grep 'master'; then
 	echo "***Currently You Are In master Branch Continue With New Release Process ***"
