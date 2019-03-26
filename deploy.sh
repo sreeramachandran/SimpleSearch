@@ -9,8 +9,8 @@ last_tag_version(){
 }
 
 
-hubj_deployment(){
-	echo "*** Deployment On Hubj Started Opening URL***"
+hubj_release(){
+	echo "*** Release On Hubj Started Opening URL***"
 	xdg-open https://console.cloud.google.com/storage/browser/gateway_builds
 	exit 1
 }
@@ -113,19 +113,18 @@ tagging_process() {
 CURRENT_BRANCH=$(current_git_branch)
 
 if echo "$CURRENT_BRANCH" | grep 'release'; then
-	echo "*** Currently You Are In Release Branch ***";
-	echo "***Your Current Git Branch Is ***" $CURRENT_BRANCH;
+	echo "WARN: currently you are in release branch ->" $CURRENT_BRANCH;
 	#if current release branch has any uncommit changes process is exit.
 	if output=$(git status --porcelain) && [ -z "$output" ];then
-  		echo "***Working Directory Is clean Continuing With Process****"
+  		echo "INFO: working directory is clean continuing with process"
   	else 
-  		echo "***Commit Your Change Before You Create A Tag***"
+  		echo "WARN: commit your changes before creating tag"
   		exit 1
 	fi
 	zenity --info --text="Make Sure Your Release Branch And Master Or In Sink!" --title="Info!"
-	read -p "Continue Your Process With Deployment Or Tagging (D/T)?" CONTINUE
-	if [ "$CONTINUE" = "D" ]; then
-		hubj_deployment
+	read -p "Continue Your Process With Deployment Or Tagging (R/T)?" CONTINUE
+	if [ "$CONTINUE" = "R" ]; then
+		hubj_release
 	elif [ "$CONTINUE" = "T" ];then
 		tagging_process
 	else
