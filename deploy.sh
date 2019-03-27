@@ -131,12 +131,12 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 		echo "INFO: process aborted";
 	fi
 elif echo "$CURRENT_BRANCH" | grep 'master'; then
-	echo "***Currently You Are In master Branch Continue With New Release Process ***"
-	read -p "Continue Your Process By Creating New Release Branch (y/n)?" CONTINUE
+	echo "INFO: current branch is :" $CURRENT_BRANCH
+	read -p "INFO: continue your process by creating new release branch (y/n)?" CONTINUE
 	if [ "$CONTINUE" = "y" ]; then
 		create_new_release_branch
 	else
-		echo "*** Aborted New Release Branch ***"
+		echo "INFO: aborted release branch"
 		exit 1
 	fi
 	
