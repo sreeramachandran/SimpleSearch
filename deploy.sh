@@ -36,20 +36,23 @@ create_new_release_branch(){
 check_release_branch(){
 	if [ `git branch --list $NEW_BRANCH_NAME` ]
 then
-   echo "Branch name $branch_name already exists."
+   echo "WARN: Branch $branch_name already exists."
    
    exit 1
 fi
 }
 
+pull_master(){
+	git pull origin master
+}
 
 # tagging and release process
 
 new_branch_tagging_process() {
 
-	echo "***New Release Branch Tagging Process Started ***"
+	echo "INFO : New release branch tagging process started"
 
-		read -p "Continue Your Process With Creating New Release Version Tag (Y/N)?" CONTINUE
+		read -p "INFO :Continue Your Process With Creating New Release Version Tag (Y/N)?" CONTINUE
 
 		if [ "$CONTINUE" = "Y" ]; then
 			read -p 'Enter New Release Release Branch Tag Name: ' newreleasebranchtagname
@@ -58,7 +61,7 @@ new_branch_tagging_process() {
 			git push --tags
 
 		else
-    		echo "***New Release Branch Tagging Process Aborted ***"
+    		echo "INFO: new release branch tagging process aborted"
     		exit 1
  		fi
 
@@ -68,7 +71,7 @@ new_branch_tagging_process() {
 
 tagging_process() {
 
-	echo "*** Tagging Process Started ***"
+	echo "INFO: tagging process started"
 
 		LAST_TAG_VERSION=$(last_tag_version)
 		
@@ -87,7 +90,7 @@ tagging_process() {
 
 		echo "Updating Tag Version $LAST_TAG_VERSION to $NEW_TAG_VERSION"
 
-		read -p "Continue Your Process With Creating Tag (Y/N)?" CONTINUE
+		read -p "INFO: Continue Your Process With Creating Tag (Y/N)?" CONTINUE
 
 		if [ "$CONTINUE" = "Y" ]; then
 			#get current hash and see if it already has a tag
@@ -100,11 +103,11 @@ tagging_process() {
     			git tag $NEW_TAG_VERSION
     			git push --tags
 			else
-    			echo "Already a tag on this commit"
+    			echo "WARN: already a tag on this commit"
 			fi
 
 		else
-    		echo "*** Tagging Process Aborted ***"
+    		echo "INFO: tagging process aborted"
     		exit 1
  		fi
 
@@ -113,15 +116,23 @@ tagging_process() {
 CURRENT_BRANCH=$(current_git_branch)
 
 if echo "$CURRENT_BRANCH" | grep 'release'; then
+
 	echo "WARN: currently you are in release branch ->" $CURRENT_BRANCH;
-	#if current release branch has any uncommit changes process is exit.
+	#If current release branch has any uncommit changes process is exit.
 	if output=$(git status --porcelain) && [ -z "$output" ];then
   		echo "INFO: working directory is clean continuing with process"
   	else 
   		echo "WARN: commit your changes before creating tag"
   		exit 1
 	fi
-	zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="Info!"
+
+	#Alert to pull changes from master for creating new tag/release 
+	zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="ALERT:!"
+	read -p "INFO: pull master for tagging (Y/N)" CONTINUE
+	if [ "$CONTINUE" = "Y" ]; then
+		pull_master
+	fi
+	echo "INFO: your current branch is upto date with master"
 	read -p "INFO: continue your process with release or tagging (R/T)?" CONTINUE
 	if [ "$CONTINUE" = "R" ]; then
 		hubj_release
@@ -136,12 +147,12 @@ elif echo "$CURRENT_BRANCH" | grep 'master'; then
 	if [ "$CONTINUE" = "y" ]; then
 		create_new_release_branch
 	else
-		echo "INFO: aborted release branch"
+		echo "INFO: aborted release branch setup"
 		exit 1
 	fi
 	
 else
-	echo "*** Currently You Are In Other Branch Checkout To Release Branch And Contine With Process***";
+	echo "INFO: your branch is different from release and master";
 	exit 1
 fi
 
