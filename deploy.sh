@@ -46,6 +46,23 @@ pull_master(){
 	git pull origin master
 }
 
+check_pull_needed(){
+
+	UPSTREAM=${1:-'@{u}'}
+LOCAL=$(git rev-parse @)
+REMOTE=$(git rev-parse "$UPSTREAM")
+BASE=$(git merge-base @ "$UPSTREAM")
+
+if [ $LOCAL = $REMOTE ]; then
+    echo "Up-to-date"
+elif [ $LOCAL = $BASE ]; then
+    echo "Need to pull"
+elif [ $REMOTE = $BASE ]; then
+    echo "Need to push"
+else
+    echo "Diverged"
+fi
+}
 # tagging and release process
 
 new_branch_tagging_process() {
@@ -122,7 +139,7 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 	if output=$(git status --porcelain) && [ -z "$output" ];then
   		echo "INFO: working directory is clean continuing with process"
   	else 
-  		echo "WARN: commit your changes before creating tag"
+  		echo "WARN: commit and push your changes before creating tag"
   		exit 1
 	fi
 
@@ -143,6 +160,8 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 	fi
 elif echo "$CURRENT_BRANCH" | grep 'master'; then
 	echo "INFO: current branch is :" $CURRENT_BRANCH
+	echo "INFO: pulling master code....."
+	check_pull_needed
 	read -p "INFO: continue your process by creating new release branch (y/n)?" CONTINUE
 	if [ "$CONTINUE" = "y" ]; then
 		create_new_release_branch
