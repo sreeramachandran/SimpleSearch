@@ -52,7 +52,7 @@ check_previous_tag_version_on_origin(){
 	LAST_TAG_VERSION=$(last_tag_version)
 	echo "Last Tag Is >>> " $LAST_TAG_VERSION
 	VARIABLE=$(git ls-remote --tags origin | grep "$LAST_TAG_VERSION")
-	echo "Number is" $VNUM4
+	echo "Number is" $VARIABLE
 	if [ -z "$VARIABLE" ]
 	then
       echo "\$VARIABLE is empty"
