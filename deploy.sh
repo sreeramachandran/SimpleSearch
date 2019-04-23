@@ -51,9 +51,14 @@ pull_current_git_branch(){
 check_previous_tag_version_on_origin(){
 	LAST_TAG_VERSION=$(last_tag_version)
 	echo "Last Tag Is >>> " $LAST_TAG_VERSION
-	VNUM4=$(git ls-remote --tags origin | grep "$LAST_TAG_VERSION")
+	VARIABLE=$(git ls-remote --tags origin | grep "$LAST_TAG_VERSION")
 	echo "Number is" $VNUM4
-
+	if [ -z "$VARIABLE" ]
+	then
+      echo "\$var is empty"
+	else
+      echo "\$var is NOT empty"
+	fi
 
 }
 
@@ -112,7 +117,7 @@ tagging_process() {
 			if [ -z "$NEEDS_TAG" ]; then
     			echo "Tagged with $NEW_TAG_VERSION (Ignoring fatal:cannot describe - this means commit is untagged) "
     			git tag $NEW_TAG_VERSION
-    			git push --tags
+    			git push origin $NEW_TAG_VERSION
 			else
     			echo "WARN: already a tag on this commit"
 			fi
