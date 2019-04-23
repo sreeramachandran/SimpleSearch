@@ -55,9 +55,9 @@ check_previous_tag_version_on_origin(){
 	echo "Number is" $VNUM4
 	if [ -z "$VARIABLE" ]
 	then
-      echo "\$var is empty"
+      echo "\$VARIABLE is empty"
 	else
-      echo "\$var is NOT empty"
+      echo "\$VARIABLE is NOT empty"
 	fi
 
 }
