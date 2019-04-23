@@ -19,11 +19,11 @@ hubj_release(){
 #creating new release branch
 
 create_new_release_branch(){
-	check_release_branch
+	
 	echo "*** Creating New Release Branch ****"
 	read -p 'Enter New Release Branch Name: ' newreleasebranchname
 	git checkout -b $newreleasebranchname master
-
+	check_release_branch
 	read -p "Continue Your Process With Tagging (y/n)?" CONTINUE
 	if [ "$CONTINUE" = "y" ]; then
 		new_branch_tagging_process
@@ -44,6 +44,9 @@ pull_master(){
 	git pull origin master
 }
 
+pull_current_git_branch(){
+	git pull origin CURRENT_BRANCH
+}
 # tagging and release process
 
 new_branch_tagging_process() {
@@ -126,9 +129,9 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 
 	#Alert to pull changes from master for creating new tag/release 
 	zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="ALERT:!"
-	read -p "INFO: pull master for tagging (Y/N)" CONTINUE
+	read -p "INFO: pull current branch for tagging (Y/N)" CONTINUE
 	if [ "$CONTINUE" = "Y" ]; then
-		pull_master
+		pull_current_git_branch
 	fi
 	echo "INFO: your current branch is upto date with master"
 	read -p "INFO: continue your process with release or tagging (R/T)?" CONTINUE
