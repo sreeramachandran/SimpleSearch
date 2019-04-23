@@ -56,7 +56,7 @@ check_previous_tag_version_on_origin(){
 	echo "Number is" $var
 	if [ -z "$var" ]
 	then
-      echo "\$var is empty"
+      echo "\$var is empty"	
 	else
       echo "\$var is NOT empty"
 	fi
@@ -88,7 +88,7 @@ new_branch_tagging_process() {
 
 tagging_process() {
 
-	echo "INFO: tagging process started"
+	echo "INFO: tagging process started."
 
 		LAST_TAG_VERSION=$(last_tag_version)
 		
