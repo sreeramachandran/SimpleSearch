@@ -52,7 +52,7 @@ check_previous_tag_version_on_origin(){
 	LAST_TAG_VERSION=$(last_tag_version)
 	echo "Last Tag Is >>> " $LAST_TAG_VERSION
 
-	if [ `git ls-remote --tags origin | grep $LAST_TAG_VERSION` ];
+	if [ `git ls-remote --tags origin | grep "$LAST_TAG_VERSION"` ];
 		then
 			echo "Tag Uncommit"
 		else
