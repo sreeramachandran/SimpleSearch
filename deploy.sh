@@ -51,13 +51,13 @@ pull_current_git_branch(){
 check_previous_tag_version_on_origin(){
 	LAST_TAG_VERSION=$(last_tag_version)
 	echo "Last Tag Is >>> " $LAST_TAG_VERSION
-	VARIABLE=$(git ls-remote --tags origin | grep "$LAST_TAG_VERSION")
-	echo "Number is" $VARIABLE
-	if [ -z "$VARIABLE" ]
+	var=$(git ls-remote --tags origin | grep "$LAST_TAG_VERSION")
+	echo "Number is" $var
+	if [ -z "$var" ]
 	then
-      echo "\$VARIABLE is empty"
+      echo "\$var is empty"
 	else
-      echo "\$VARIABLE is NOT empty"
+      echo "\$var is NOT empty"
 	fi
 
 }
