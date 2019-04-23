@@ -45,7 +45,8 @@ pull_master(){
 }
 
 pull_current_git_branch(){
-	git pull origin CURRENT_BRANCH
+	CURRENT_BRANCH=$(current_git_branch)
+	git pull origin $CURRENT_BRANCH
 }
 
 check_previous_tag_version_on_origin(){
@@ -149,8 +150,6 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 		pull_current_git_branch
 	fi
 	echo "INFO: your current branch is upto date with master"
-	echo "INFO: checking previous tag is pushed or not"
-	check_previous_tag_version_on_origin
 	read -p "INFO: continue your process with release or tagging (R/T)?" CONTINUE
 	if [ "$CONTINUE" = "R" ]; then
 		hubj_release
