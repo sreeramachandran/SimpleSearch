@@ -31,17 +31,8 @@ create_new_release_branch(){
 	
 	echo "*** Creating New Release Branch ****"
 	read -p 'Enter New Release Branch Name: ' newreleasebranchname
-	#NEW_BRANCH_NAME=$newreleasebranchname
 
-	#if [ 'git branch --list $NEW_BRANCH_NAME' ]; then
-     # echo "WARN: Branch $NEW_BRANCH_NAME already exists."
-     # exit 1
-    #else
-
-	echo "BRANCH NAME IS >>>>> >>>> >>> >> >" $newreleasebranchname
 	git checkout -b $newreleasebranchname master
-
-	#fi
 
 	read -p "Continue Your Process With Tagging (y/n)?" CONTINUE
 	if [ "$CONTINUE" = "y" ]; then
