@@ -19,6 +19,15 @@ hubj_release(){
 #creating new release branch
 
 create_new_release_branch(){
+
+	if echo "$CURRENT_BRANCH" | grep 'master'; then
+		echo "INFO: current branch is :" $CURRENT_BRANCH
+		echo "INFO: pulling master code....."
+		pull_master
+	else
+		echo "INFO: current branch is not master. So aborted release"
+		exit 1
+	fi
 	
 	echo "*** Creating New Release Branch ****"
 	read -p 'Enter New Release Branch Name: ' newreleasebranchname
@@ -165,18 +174,6 @@ tag_from_release_branch(){
 		else
 			echo "INFO: process aborted";
 		fi
-	elif echo "$CURRENT_BRANCH" | grep 'master'; then
-		echo "INFO: current branch is :" $CURRENT_BRANCH
-		echo "INFO: pulling master code....."
-		pull_master
-		read -p "INFO: continue your process by creating new release branch (y/n)?" CONTINUE
-		if [ "$CONTINUE" = "y" ]; then
-			create_new_release_branch
-		else
-			echo "INFO: aborted release branch setup"
-			exit 1
-		fi
-		
 	else
 		echo "INFO: your branch is different from release and master";
 		exit 1
