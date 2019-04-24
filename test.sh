@@ -79,7 +79,7 @@ new_branch_tagging_process() {
 			git push --tags
 
 		else
-    		echo "INFO: new release branch tagging process aborted"
+    		echo "INFO: new release branch tagging process aborted."
     		exit 1
  		fi
 
