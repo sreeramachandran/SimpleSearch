@@ -136,9 +136,60 @@ tagging_process() {
 
 }
 
+tag_from_release_branch(){
+	
+	CURRENT_BRANCH=$(current_git_branch)
+
+
+	if echo "$CURRENT_BRANCH" | grep 'release'; then
+
+		echo "WARN: currently you are in release branch ->" $CURRENT_BRANCH;
+		#If current release branch has any uncommit changes process is exit.
+		if output=$(git status --porcelain) && [ -z "$output" ];then
+	  		echo "INFO: working directory is clean continuing with process"
+	  	else 
+	  		echo "WARN: commit and push your changes before creating tag"
+	  		exit 1
+		fi
+
+		#Alert to pull changes from master for creating new tag/release 
+		#zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="ALERT:!"
+		read -p "INFO: pull current branch for tagging (Y/N)" CONTINUE
+		if [ "$CONTINUE" = "Y" ]; then
+			pull_current_git_branch
+		fi
+		echo "INFO: your current branch is upto date with master"
+		read -p "INFO: continue your process with release or tagging (R/T)?" CONTINUE
+		if [ "$CONTINUE" = "R" ]; then
+			hubj_release
+		elif [ "$CONTINUE" = "T" ];then
+			tagging_process
+		else
+			echo "INFO: process aborted";
+		fi
+	elif echo "$CURRENT_BRANCH" | grep 'master'; then
+		echo "INFO: current branch is :" $CURRENT_BRANCH
+		echo "INFO: pulling master code....."
+		pull_master
+		read -p "INFO: continue your process by creating new release branch (y/n)?" CONTINUE
+		if [ "$CONTINUE" = "y" ]; then
+			create_new_release_branch
+		else
+			echo "INFO: aborted release branch setup"
+			exit 1
+		fi
+		
+	else
+		echo "INFO: your branch is different from release and master";
+		exit 1
+	fi
+
+}
+
+
 echo "*******************"
 PS3='Select an option and press Enter: '
-options=("uploadFile" "newreleasebranch" "sendmail")
+options=("uploadFile" "newreleasebranch" "tagfromreleasebranch")
 select opt in "${options[@]}"
 do
   case $opt in
@@ -148,8 +199,8 @@ do
         "newreleasebranch")
           create_new_release_branch
           ;;
-        "sendmail")
-          echo "test 2"
+        "tagfromreleasebranch")
+          tag_from_release_branch
           ;;
         *) echo "invalid option";;
   esac
