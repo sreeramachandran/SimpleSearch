@@ -121,6 +121,7 @@ tagging_process() {
     			git push origin $NEW_TAG_VERSION
 			else
     			echo "WARN: already a tag on this commit"
+    			exit 1
 			fi
 			#push current branch to github
 			read -p "INFO: Push current branch to origin (Y/N)?" CONTINUE
