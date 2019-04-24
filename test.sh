@@ -38,7 +38,7 @@ create_new_release_branch(){
      # exit 1
     #else
 
-	echo "BRANCH NAME IS >>>>> >>>> >>> >> >" $NEW_BRANCH_NAME
+	echo "BRANCH NAME IS >>>>> >>>> >>> >> >" $newreleasebranchname
 	git checkout -b $newreleasebranchname master
 
 	#fi
