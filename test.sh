@@ -19,7 +19,7 @@ hubj_release(){
 #creating new release branch
 
 create_new_release_branch(){
-
+	CURRENT_BRANCH=$(current_git_branch)
 	if echo "$CURRENT_BRANCH" | grep 'master'; then
 		echo "INFO: current branch is :" $CURRENT_BRANCH
 		echo "INFO: pulling master code....."
