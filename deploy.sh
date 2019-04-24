@@ -45,8 +45,24 @@ pull_master(){
 }
 
 pull_current_git_branch(){
-	git pull origin CURRENT_BRANCH
+	CURRENT_BRANCH=$(current_git_branch)
+	git pull origin $CURRENT_BRANCH
 }
+
+check_previous_tag_version_on_origin(){
+	LAST_TAG_VERSION=$(last_tag_version)
+	echo "Last Tag Is >>> " $LAST_TAG_VERSION
+	var=$(git ls-remote --tags origin | grep "$LAST_TAG_VERSION")
+	echo "Number is" $var
+	if [ -z "$var" ]
+	then
+      echo "\$var is empty"	
+	else
+      echo "\$var is NOT empty"
+	fi
+
+}
+
 # tagging and release process
 
 new_branch_tagging_process() {
@@ -72,7 +88,7 @@ new_branch_tagging_process() {
 
 tagging_process() {
 
-	echo "INFO: tagging process started"
+	echo "INFO: tagging process started."
 
 		LAST_TAG_VERSION=$(last_tag_version)
 		
@@ -102,10 +118,16 @@ tagging_process() {
 			if [ -z "$NEEDS_TAG" ]; then
     			echo "Tagged with $NEW_TAG_VERSION (Ignoring fatal:cannot describe - this means commit is untagged) "
     			git tag $NEW_TAG_VERSION
-    			git push --tags
+    			git push origin $NEW_TAG_VERSION
 			else
     			echo "WARN: already a tag on this commit"
+    			exit 1
 			fi
+			#push current branch to github
+			read -p "INFO: Push current branch to origin (Y/N)?" CONTINUE
+			if [ "$CONTINUE" = "Y" ]; then
+				git push origin $CURRENT_BRANCH
+			fi	
 
 		else
     		echo "INFO: tagging process aborted"
@@ -115,6 +137,7 @@ tagging_process() {
 }
 
 CURRENT_BRANCH=$(current_git_branch)
+
 
 if echo "$CURRENT_BRANCH" | grep 'release'; then
 
@@ -128,7 +151,7 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 	fi
 
 	#Alert to pull changes from master for creating new tag/release 
-	zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="ALERT:!"
+	#zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="ALERT:!"
 	read -p "INFO: pull current branch for tagging (Y/N)" CONTINUE
 	if [ "$CONTINUE" = "Y" ]; then
 		pull_current_git_branch
@@ -158,5 +181,3 @@ else
 	echo "INFO: your branch is different from release and master";
 	exit 1
 fi
-
-
