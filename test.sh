@@ -31,10 +31,10 @@ create_new_release_branch(){
 	
 	echo "*** Creating New Release Branch ****"
 	read -p 'Enter New Release Branch Name: ' newreleasebranchname
-	git checkout -b $newreleasebranchname master
 	NEW_BRANCH_NAME=$newreleasebranchname
 	echo "BRANCH NAME IS >>>>> >>>> >>> >> >" $NEW_BRANCH_NAME
 	check_release_branch
+	git checkout -b $newreleasebranchname master
 	read -p "Continue Your Process With Tagging (y/n)?" CONTINUE
 	if [ "$CONTINUE" = "y" ]; then
 		new_branch_tagging_process
