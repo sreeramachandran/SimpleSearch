@@ -48,6 +48,7 @@ create_new_release_branch(){
 		new_branch_tagging_process
 	else
 		echo "*** Exit Process ****";
+		exit 1
 	fi
 }
 
