@@ -46,7 +46,7 @@ create_new_release_branch(){
 
 check_release_branch(){
 	if [ 'git branch --list $NEW_BRANCH_NAME' ]; then
-      echo "WARN: Branch $branch_name already exists."
+      echo "WARN: Branch $NEW_BRANCH_NAME already exists."
       exit 1
     fi
 }
