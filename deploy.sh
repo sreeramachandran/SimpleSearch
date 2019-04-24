@@ -122,6 +122,11 @@ tagging_process() {
 			else
     			echo "WARN: already a tag on this commit"
 			fi
+			#push current branch to github
+			read -p "INFO: Push current branch to origin (Y/N)?" CONTINUE
+			if [ "$CONTINUE" = "Y" ]; then
+				git push origin $CURRENT_BRANCH
+			fi	
 
 		else
     		echo "INFO: tagging process aborted"
@@ -144,7 +149,7 @@ if echo "$CURRENT_BRANCH" | grep 'release'; then
 	fi
 
 	#Alert to pull changes from master for creating new tag/release 
-	zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="ALERT:!"
+	#zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="ALERT:!"
 	read -p "INFO: pull current branch for tagging (Y/N)" CONTINUE
 	if [ "$CONTINUE" = "Y" ]; then
 		pull_current_git_branch
@@ -174,5 +179,3 @@ else
 	echo "INFO: your branch is different from release and master";
 	exit 1
 fi
-
-
