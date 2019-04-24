@@ -138,6 +138,11 @@ tagging_process() {
 
 CURRENT_BRANCH=$(current_git_branch)
 
+dialog --clear --backtitle "Backtitle here" --title "Title here" --menu "Choose one of the following options:" 15 40 4 \
+1 "Option 1" \
+2 "Option 2" \
+3 "Option 3"
+
 if echo "$CURRENT_BRANCH" | grep 'release'; then
 
 	echo "WARN: currently you are in release branch ->" $CURRENT_BRANCH;
