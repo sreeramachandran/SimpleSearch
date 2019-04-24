@@ -47,6 +47,7 @@ pull_master(){
 pull_current_git_branch(){
 	CURRENT_BRANCH=$(current_git_branch)
 	git pull origin $CURRENT_BRANCH
+	echo "INFO: your current branch is upto date with master"
 }
 
 check_previous_tag_version_on_origin(){
@@ -137,7 +138,7 @@ tagging_process() {
 }
 
 tag_from_release_branch(){
-	
+
 	CURRENT_BRANCH=$(current_git_branch)
 
 
@@ -158,11 +159,8 @@ tag_from_release_branch(){
 		if [ "$CONTINUE" = "Y" ]; then
 			pull_current_git_branch
 		fi
-		echo "INFO: your current branch is upto date with master"
-		read -p "INFO: continue your process with release or tagging (R/T)?" CONTINUE
-		if [ "$CONTINUE" = "R" ]; then
-			hubj_release
-		elif [ "$CONTINUE" = "T" ];then
+		read -p "INFO: continue your process with tagging (Y/N)?" CONTINUE
+		if [ "$CONTINUE" = "Y" ]; then
 			tagging_process
 		else
 			echo "INFO: process aborted";
