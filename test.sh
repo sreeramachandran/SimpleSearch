@@ -68,20 +68,6 @@ pull_current_git_branch(){
 	echo "INFO: your current branch is upto date with master"
 }
 
-check_previous_tag_version_on_origin(){
-	LAST_TAG_VERSION=$(last_tag_version)
-	echo "Last Tag Is >>> " $LAST_TAG_VERSION
-	var=$(git ls-remote --tags origin | grep "$LAST_TAG_VERSION")
-	echo "Number is" $var
-	if [ -z "$var" ]
-	then
-      echo "\$var is empty"	
-	else
-      echo "\$var is NOT empty"
-	fi
-
-}
-
 # tagging and release process
 
 new_branch_tagging_process() {
@@ -154,6 +140,7 @@ tagging_process() {
 			read -p "INFO: Push current branch to origin (Y/N)?" CONTINUE
 			if [ "$CONTINUE" = "Y" ]; then
 				git push origin $CURRENT_BRANCH
+				exit 1
 			fi	
 
 		else
@@ -180,7 +167,6 @@ tag_from_release_branch(){
 		fi
 
 		#Alert to pull changes from master for creating new tag/release 
-		#zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="ALERT:!"
 		read -p "INFO: pull current branch for tagging (Y/N)" CONTINUE
 		if [ "$CONTINUE" = "Y" ]; then
 			pull_current_git_branch
@@ -190,6 +176,7 @@ tag_from_release_branch(){
 			tagging_process
 		else
 			echo "INFO: process aborted";
+			exit 1
 		fi
 	else
 		echo "INFO: your branch is different from release and master";
