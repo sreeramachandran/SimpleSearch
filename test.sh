@@ -47,7 +47,7 @@ fi
 		git push origin $newreleasebranchname
 	else
 		echo "WARN: your release branch pushing has been aborted"
-
+	fi
 	read -p "Continue Your Process With Tagging (y/n)?" CONTINUE
 	if [ "$CONTINUE" = "y" ]; then
 		new_branch_tagging_process
