@@ -83,9 +83,11 @@ new_branch_tagging_process() {
 			if [ "$newreleasebranchtagname" = "$LAST_TAG_VERSION" ]; then
 				echo "WARN: tag version has been already available"
 				exit 1
-				else	
+				else
+					echo "INFO: pushing created tag to github"
 					git tag $newreleasebranchtagname
 					git push origin $newreleasebranchtagname
+					exit 1
 			fi
 
 		else
