@@ -79,8 +79,13 @@ new_branch_tagging_process() {
 		if [ "$CONTINUE" = "Y" ]; then
 			read -p 'Enter New Release Release Branch Tag Name: ' newreleasebranchtagname
 			echo $newreleasebranchtagname
-			git tag $newreleasebranchtagname
-			git push origin $newreleasebranchtagname
+			LAST_TAG_VERSION=$(last_tag_version)
+			if [ "$newreleasebranchtagname" = "$LAST_TAG_VERSION" ]; then
+				echo "Tag Already Created"
+				else	
+					git tag $newreleasebranchtagname
+					git push origin $newreleasebranchtagname
+			fi
 
 		else
     		echo "INFO: new release branch tagging process aborted."
