@@ -80,7 +80,7 @@ new_branch_tagging_process() {
 			read -p 'Enter New Release Release Branch Tag Name: ' newreleasebranchtagname
 			echo $newreleasebranchtagname
 			git tag $newreleasebranchtagname
-			git push --tags
+			git push origin $newreleasebranchtagname
 
 		else
     		echo "INFO: new release branch tagging process aborted."
