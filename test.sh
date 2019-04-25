@@ -41,6 +41,13 @@ fi
 
 	git checkout -b $newreleasebranchname master
 
+	read -p "Push your current release branch to git [y/n]" CONTINUE
+	if[ "$CONTINUE" = "y" ]; then
+		echo "INFO: pushing your release branch to github"
+		git push origin $newreleasebranchname
+	else
+		echo "WARN: your release branch pushing has been aborted"
+
 	read -p "Continue Your Process With Tagging (y/n)?" CONTINUE
 	if [ "$CONTINUE" = "y" ]; then
 		new_branch_tagging_process
