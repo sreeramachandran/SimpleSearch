@@ -118,7 +118,7 @@ tagging_process() {
 
 	echo "Updating Tag Version $LAST_TAG_VERSION to $NEW_TAG_VERSION"
 
-	read -p "INFO: Continue Your Process With Creating Tag .(y/n)?" CONTINUE
+	read -p "INFO: Continue Your Process With Creating Tag(y/n)?" CONTINUE
 
 	if [ "$CONTINUE" = "y" ] || [ "$CONTINUE" = "Y" ]; then
 		#get current hash and see if it already has a tag
