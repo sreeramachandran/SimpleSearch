@@ -28,6 +28,11 @@ create_new_release_branch(){
 	check_release_branch
 	echo "INFO: new release branch tagging process started"
 	new_branch_tagging_process
+	#push current branch to github
+		read -p "INFO: Push current branch to origin (y/n)?" CONTINUE
+		if [ "$CONTINUE" = "y" ] || [ "$CONTINUE" = "Y" ]; then
+			git push origin $CURRENT_BRANCH
+		fi	
 }
 
 
@@ -74,14 +79,14 @@ new_branch_tagging_process() {
 
 	read -p "INFO: continue your process with creating new release version tag (y/n)?" CONTINUE
 
-	if [ "$CONTINUE" = "Y" ]; then
+	if [ "$CONTINUE" = "y" ] || [ "$CONTINUE" = "Y" ]; then
 		tag_new_release_branch	
  	fi
 
- 	if[ "$CONTINUE" = "N" ]; then 
+ 	if [ "$CONTINUE" = "N" ]; then 
  		zenity --info --text="ALERT: make sure your new release branch has been tagged!" --title="ALERT:!"
  		read -p "INFO: do you still want to abort the process (y/n)?" CONTINUE
- 		if [ "$CONTINUE" = "Y" ]; then
+ 		if [ "$CONTINUE" = "y" ] || [ "$CONTINUE" = "Y" ]; then
  			echo "WARN: process aborted"
  			exit 1
  		else 
@@ -131,7 +136,7 @@ tagging_process() {
 		fi
 		#push current branch to github
 		read -p "INFO: Push current branch to origin (y/n)?" CONTINUE
-		if [ "$CONTINUE" = "Y" ]; then
+		if [ "$CONTINUE" = "y" ] || [ "$CONTINUE" = "Y" ]; then
 			git push origin $CURRENT_BRANCH
 		fi	
 	else
@@ -171,8 +176,7 @@ elif echo "$CURRENT_BRANCH" | grep 'master'; then
 	echo "INFO: pulling master code from git"
 	pull_master
 	read -p "INFO: continue your process by creating new release branch (y/n)?" CONTINUE
-	#if [ `echo $CONTINUE | tr [:upper:] [:lower:]` = "$CONTINUE" = "y"]; then
-	if [ "$CONTINUE" = "y"] || [ "$CONTINUE" = "Y" ]; then
+	if [ "$CONTINUE" = "y" ] || [ "$CONTINUE" = "Y" ]; then
 		create_new_release_branch
 	else
 		echo "INFO: aborted release branch setup"
