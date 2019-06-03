@@ -18,7 +18,8 @@ hubj_release(){
 #creating new release branch
 
 create_new_release_branch(){
-	
+
+	CURRENT_BRANCH=$(current_git_branch)
 	echo "INFO: creating new release branch"
 	read -p 'enter new release branch name : ' newreleasebranchname
 	git checkout -b $newreleasebranchname master
