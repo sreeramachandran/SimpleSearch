@@ -154,6 +154,9 @@ tagging_process() {
 			read -p "INFO: Push current branch to origin (Y/N)?" CONTINUE
 			if [ "$CONTINUE" = "Y" ]; then
 				git push origin $CURRENT_BRANCH
+			else
+				echo "WARN: its recommended to push current branch to git after tagging"
+				exit 1
 			fi	
 
 		else
@@ -180,10 +183,12 @@ tag_from_release_branch(){
 		fi
 
 		#Alert to pull changes from master for creating new tag/release 
-		#zenity --info --text="ALERT: make sure your release branch and master or in sink!" --title="ALERT:!"
 		read -p "INFO: pull current branch for tagging (Y/N)" CONTINUE
 		if [ "$CONTINUE" = "Y" ]; then
 			pull_current_git_branch
+		else
+			echo "WARN: current branch is not upto date"
+			exit 1
 		fi
 		read -p "INFO: continue your process with tagging (Y/N)?" CONTINUE
 		if [ "$CONTINUE" = "Y" ]; then
