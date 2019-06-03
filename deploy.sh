@@ -120,7 +120,7 @@ tagging_process() {
 
 	read -p "INFO: Continue Your Process With Creating Tag (y/n)?" CONTINUE
 
-	if [ "$CONTINUE" = "Y" 	]; then
+	if [ "$CONTINUE" = "y" ] || [ "$CONTINUE" = "Y" ]; then
 		#get current hash and see if it already has a tag
 		GIT_COMMIT=`git rev-parse HEAD`
 		NEEDS_TAG=`git describe --contains $GIT_COMMIT`
