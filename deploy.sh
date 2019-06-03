@@ -19,7 +19,6 @@ hubj_release(){
 
 create_new_release_branch(){
 	
-	CURRENT_BRANCH=$(current_git_branch)	
 	echo "INFO: creating new release branch"
 	read -p 'enter new release branch name : ' newreleasebranchname
 	git checkout -b $newreleasebranchname master
@@ -30,10 +29,10 @@ create_new_release_branch(){
 	echo "INFO: new release branch tagging process started"
 	new_branch_tagging_process
 	#push current branch to github
-		echo "BRANCH NAME >>>>> >>>> >>> >> >" $CURRENT_BRANCH
+		echo "BRANCH NAME >>>>> >>>> >>> >> >" $NEW_BRANCH_NAME
 		read -p "INFO: Push current branch to origin (y/n)?" CONTINUE
 		if [ "$CONTINUE" = "y" ] || [ "$CONTINUE" = "Y" ]; then
-			git push origin $CURRENT_BRANCH
+			git push origin $NEW_BRANCH_NAME
 		fi	
 	exit 1
 }
