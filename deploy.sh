@@ -78,7 +78,7 @@ new_branch_tagging_process() {
 		tag_new_release_branch	
  	fi
 
- 	if[ "$CONTINUE" = "N"]; then 
+ 	if[ "$CONTINUE" = "N" ]; then 
  		zenity --info --text="ALERT: make sure your new release branch has been tagged!" --title="ALERT:!"
  		read -p "INFO: do you still want to abort the process (y/n)?" CONTINUE
  		if [ "$CONTINUE" = "Y" ]; then
