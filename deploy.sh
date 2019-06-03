@@ -30,6 +30,7 @@ create_new_release_branch(){
 	echo "INFO: new release branch tagging process started"
 	new_branch_tagging_process
 	#push current branch to github
+		echo "BRANCH NAME >>>>> >>>> >>> >> >" $CURRENT_BRANCH
 		read -p "INFO: Push current branch to origin (y/n)?" CONTINUE
 		if [ "$CONTINUE" = "y" ] || [ "$CONTINUE" = "Y" ]; then
 			git push origin $CURRENT_BRANCH
