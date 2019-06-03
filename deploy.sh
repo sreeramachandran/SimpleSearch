@@ -33,6 +33,7 @@ create_new_release_branch(){
 		if [ "$CONTINUE" = "y" ] || [ "$CONTINUE" = "Y" ]; then
 			git push origin $CURRENT_BRANCH
 		fi	
+	exit 1
 }
 
 
@@ -71,7 +72,6 @@ tag_new_release_branch (){
 	echo $newreleasebranchtagname
 	git tag $newreleasebranchtagname
 	git push --tags
-	exit 1
 }
 # New release branch tagging process.
 
