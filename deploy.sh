@@ -171,8 +171,8 @@ elif echo "$CURRENT_BRANCH" | grep 'master'; then
 	echo "INFO: pulling master code from git"
 	pull_master
 	read -p "INFO: continue your process by creating new release branch (y/n)?" CONTINUE
-	if [ `echo $CONTINUE | tr [:upper:] [:lower:]` = "$CONTINUE" = "y"]; then
-	#if [ "$CONTINUE" = "y" ]; then
+	#if [ `echo $CONTINUE | tr [:upper:] [:lower:]` = "$CONTINUE" = "y"]; then
+	if [ "$CONTINUE" = "y"] || [ "$CONTINUE" = "Y" ]; then
 		create_new_release_branch
 	else
 		echo "INFO: aborted release branch setup"
