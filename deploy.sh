@@ -15,6 +15,8 @@ hubj_release(){
 	exit 1
 }
 
+CURRENT_BRANCH=$(current_git_branch)
+
 #creating new release branch
 
 create_new_release_branch(){
@@ -71,7 +73,7 @@ tag_new_release_branch (){
 	read -p 'enter new release branch tag name: ' newreleasebranchtagname
 	echo $newreleasebranchtagname
 	git tag $newreleasebranchtagname
-	git push --tags
+	git push origin $newreleasebranchtagname
 }
 # New release branch tagging process.
 
